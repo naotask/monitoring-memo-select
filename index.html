@@ -4,23 +4,25 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#0f6b61">
-  <title>モニタリングメモ（選択式・試作）</title>
+  <link rel="icon" type="image/png" href="icon.png">
+  <link rel="apple-touch-icon" href="icon.png">
+  <title>モニタリングメモ</title>
   <style>
     :root{--ink:#20312f;--muted:#647673;--paper:#fffdf8;--bg:#edf4f1;--line:#cedbd7;--main:#0f6b61;--main2:#e0f0eb;--danger:#a64040;--shadow:0 10px 28px rgba(31,66,59,.1)}
     *{box-sizing:border-box}body{margin:0;background:linear-gradient(145deg,#eaf3ef,#f7f2e8);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;font-size:16px;line-height:1.5;min-height:100vh}
-    button,input,textarea{font:inherit}.app{max-width:760px;margin:auto;padding:14px 12px 70px}.top{display:flex;align-items:center;gap:11px;margin:3px 2px 14px}.mark{width:42px;height:42px;border-radius:13px;background:var(--main);color:#fff;display:grid;place-items:center;font-weight:800;font-size:22px;box-shadow:var(--shadow)}h1{font-size:1.25rem;margin:0}.sub{font-size:.78rem;color:var(--muted)}
-    .notice{background:#fff3d8;border:1px solid #ead09a;border-radius:12px;padding:9px 12px;margin-bottom:12px;font-size:.86rem}.panel{background:rgba(255,253,248,.97);border:1px solid rgba(186,204,198,.8);border-radius:19px;padding:16px;box-shadow:var(--shadow)}.grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:10px}.field{margin-bottom:17px}.field>label,.title{display:block;font-weight:750;margin:0 0 8px}.required{color:var(--danger);font-size:.78rem}
+    button,input,textarea{font:inherit}.app{max-width:760px;margin:auto;padding:14px 12px 70px}.top{display:flex;align-items:center;gap:11px;margin:3px 2px 14px}.mark{width:42px;height:42px;border-radius:13px;object-fit:cover;box-shadow:var(--shadow)}h1{font-size:1.25rem;margin:0}.sub{font-size:.78rem;color:var(--muted)}
+    .top{justify-content:space-between}.brand{display:flex;align-items:center;gap:11px}.tabs{display:grid;grid-template-columns:1fr 1fr;background:#dce8e4;padding:4px;border-radius:14px;margin-bottom:12px}.tab{border:0;background:transparent;color:#47615d;border-radius:11px;padding:10px;font-weight:700}.tab.active{background:var(--paper);color:var(--main);box-shadow:0 2px 10px rgba(25,57,52,.1)}.panel{background:rgba(255,253,248,.97);border:1px solid rgba(186,204,198,.8);border-radius:19px;padding:16px;box-shadow:var(--shadow)}.grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:10px}.field{margin-bottom:17px}.field>label,.title{display:block;font-weight:750;margin:0 0 8px}.required{color:var(--danger);font-size:.78rem}
     input[type=date],input[type=time],input[type=text],textarea{width:100%;border:1.5px solid var(--line);border-radius:11px;background:#fff;padding:11px 12px;color:var(--ink);outline:none}textarea{min-height:84px;resize:vertical}input:focus,textarea:focus{border-color:var(--main);box-shadow:0 0 0 3px rgba(15,107,97,.12)}
     .choice-section{border-top:1px solid #dce5e2;padding-top:15px;margin-top:2px}.choices{display:flex;flex-wrap:wrap;gap:8px}.choice{position:relative}.choice input{position:absolute;opacity:0;pointer-events:none}.choice span{display:inline-block;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:9px 13px;font-size:.92rem;cursor:pointer;user-select:none}.choice input:checked+span{border-color:var(--main);background:var(--main2);color:var(--main);font-weight:750}.choice input:focus-visible+span{outline:3px solid rgba(15,107,97,.2)}
-    .other{display:none;margin-top:9px}.other.show{display:block}.hint{font-size:.8rem;color:var(--muted);margin:7px 0 0}.actions{display:flex;gap:9px;margin:18px 0 15px}.btn{border:0;border-radius:12px;padding:12px 15px;font-weight:750;cursor:pointer}.primary{background:var(--main);color:#fff;flex:1}.ghost{background:#edf1ef;color:#485b57}.output textarea{min-height:180px;background:#fbfdfc}.status{text-align:center;min-height:24px;color:var(--main);font-weight:700}.privacy{text-align:center;color:var(--muted);font-size:.76rem;margin:14px 0 0}
+    .other{display:none;margin-top:9px}.other.show{display:block}.hint{font-size:.8rem;color:var(--muted);margin:7px 0 0}.actions{display:flex;flex-wrap:wrap;gap:9px;margin:18px 0 15px}.btn{border:0;border-radius:12px;padding:12px 15px;font-weight:750;cursor:pointer}.primary{background:var(--main);color:#fff}.ghost{background:#edf1ef;color:#485b57}.danger{background:#fff0f0;color:var(--danger)}.big{width:100%}.output textarea{min-height:180px;background:#fbfdfc}.check{display:flex;align-items:center;gap:9px;padding:11px;border:1px solid var(--line);border-radius:11px;background:#fff;margin-bottom:13px}.check input{width:21px;height:21px;accent-color:var(--main)}.status{text-align:center;min-height:24px;color:var(--main);font-weight:700}.privacy{text-align:center;color:var(--muted);font-size:.76rem;margin:14px 0 0}.list-tools{display:flex;gap:8px;margin-bottom:12px}.list-tools input{flex:1}.cards{display:grid;gap:9px}.card{border:1px solid var(--line);background:#fff;border-radius:14px;padding:13px;text-align:left;width:100%;color:var(--ink)}.card-head{display:flex;justify-content:space-between;gap:8px}.card-name{font-weight:800}.card-date,.preview{font-size:.84rem;color:var(--muted)}.badge{font-size:.74rem;font-weight:750;padding:3px 8px;border-radius:999px;background:#fff1d9;color:#92570f}.badge.done{background:#e2f3e8;color:#2e7351}.preview{margin-top:6px}.empty{text-align:center;color:var(--muted);padding:30px 8px}#listView{display:none}
     @media(max-width:600px){.app{padding:10px 9px 60px}.panel{padding:14px;border-radius:16px}.grid{grid-template-columns:1fr 1fr}.name-field{grid-column:1/-1}.choice span{padding:9px 11px}.actions{flex-direction:column}.ghost{width:100%}}
   </style>
 </head>
 <body>
 <main class="app">
-  <header class="top"><div class="mark">M</div><div><h1>モニタリングメモ</h1><div class="sub">選んで、必要なところだけ書く</div></div></header>
-  <div class="notice">確認用の試作です。選択肢の文章はあとで変更できます。</div>
-  <section class="panel">
+  <header class="top"><div class="brand"><img class="mark" src="icon.png" alt="モニタリングメモのアイコン"><div><h1>モニタリングメモ</h1><div class="sub">選んで、必要なところだけ書く</div></div></div><button class="btn ghost" id="newTop" type="button">新規</button></header>
+  <nav class="tabs"><button class="tab active" id="inputTab" type="button">入力</button><button class="tab" id="listTab" type="button">保存済み一覧 <span id="count"></span></button></nav>
+  <section class="panel" id="inputView">
     <div class="grid">
       <div class="field name-field"><label for="name">利用者名 <span class="required">必須</span></label><input id="name" type="text" autocomplete="off"></div>
       <div class="field"><label for="date">日付 <span class="required">必須</span></label><input id="date" type="date"></div>
@@ -34,14 +36,19 @@
       <textarea id="free" placeholder="ほかに聞いたことや気になったこと"></textarea>
     </div>
 
-    <div class="actions"><button class="btn primary" id="make" type="button">文章を作成</button><button class="btn ghost" id="clear" type="button">入力をクリア</button></div>
+    <div class="actions"><button class="btn primary" id="make" type="button">文章を作成</button><button class="btn ghost" id="download" type="button">文章をファイル保存</button></div>
     <div class="field output"><label for="output">作成した文章</label><textarea id="output" placeholder="選択後に「文章を作成」を押してください"></textarea></div>
+    <label class="check"><input id="transferred" type="checkbox"><span>介護ソフトへ転記済み</span></label>
     <div id="status" class="status" aria-live="polite"></div>
-    <p class="privacy">この試作画面の入力内容は保存されません。</p>
+    <button class="btn primary big" id="save" type="button">このメモを保存</button>
+    <div class="actions" id="editActions" style="display:none"><button class="btn danger" id="remove" type="button">このメモを削除</button><button class="btn ghost" id="cancel" type="button">編集をやめる</button></div>
+    <p class="privacy">入力内容は、この端末のブラウザ内に保存されます。</p>
   </section>
+  <section class="panel" id="listView"><div class="list-tools"><input id="search" type="text" placeholder="利用者名や内容で検索"><button class="btn ghost" id="clearSearch" type="button">解除</button></div><div id="cards" class="cards"></div></section>
 </main>
 <script>
 (()=>{'use strict';
+const KEY='monitoringMemoChoiceRecordsV1';
 const DATA=[
   {id:'changes',label:'体調・生活の変化',prefix:'体調・生活状況について、',options:['大きな変化はみられない','体調は安定している','食欲に変化はない','睡眠状況に変化はない']},
   {id:'service',label:'サービス利用状況',prefix:'サービス利用状況について、',options:['予定どおり利用できている','継続して利用できている','休まず利用できている','一部利用できていない']},
@@ -53,11 +60,24 @@ const $=id=>document.getElementById(id);
 function esc(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 $('sections').innerHTML=DATA.map(s=>`<section class="field choice-section" data-section="${s.id}"><div class="title">${s.label}</div><div class="choices">${s.options.map((o,i)=>`<label class="choice"><input type="checkbox" name="${s.id}" value="${esc(o)}"><span>${esc(o)}</span></label>`).join('')}<label class="choice"><input type="checkbox" class="other-check" name="${s.id}" value="その他"><span>その他</span></label></div><textarea class="other" id="${s.id}-other" placeholder="その他の内容を入力"></textarea><p class="hint">複数選べます</p></section>`).join('');
 document.querySelectorAll('.other-check').forEach(c=>c.addEventListener('change',()=>{const t=$(`${c.name}-other`);t.classList.toggle('show',c.checked);if(!c.checked)t.value=''}));
+let editingId=null;
+function loadAll(){try{const v=JSON.parse(localStorage.getItem(KEY)||'[]');return Array.isArray(v)?v:[]}catch{return[]}}
+function writeAll(v){localStorage.setItem(KEY,JSON.stringify(v))}
 function period(s){s=(s||'').trim();return !s?'':/[。！？!?]$/.test(s)?s:s+'。'}
 function values(id){const v=[...document.querySelectorAll(`input[name="${id}"]:checked`)].filter(x=>x.value!=='その他').map(x=>x.value);const other=$(`${id}-other`).value.trim();if(other)v.push(other);return v}
-function makeText(){const parts=[];const date=$('date').value;if(date){const[y,m,d]=date.split('-');parts.push(`${Number(y)}年${Number(m)}月${Number(d)}日、`)}if($('start').value||$('end').value)parts.push(`${$('start').value||'―'}～${$('end').value||'―'}にモニタリングを実施。`);DATA.forEach(s=>{const v=values(s.id);if(v.length)parts.push(s.prefix+period(v.join('、')))});if($('free').value.trim())parts.push(period($('free').value));$('output').value=parts.join('');$('status').textContent=parts.length?'文章を作成しました':'内容を選択または入力してください';setTimeout(()=>{$('status').textContent=''},2500)}
-function clearAll(){document.querySelectorAll('input[type="checkbox"]').forEach(x=>x.checked=false);document.querySelectorAll('textarea,input[type="text"],input[type="time"]').forEach(x=>x.value='');document.querySelectorAll('.other').forEach(x=>x.classList.remove('show'));$('date').value=new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10)}
-$('make').addEventListener('click',makeText);$('clear').addEventListener('click',clearAll);clearAll();
+function message(s,bad=false){$('status').textContent=s;$('status').style.color=bad?'var(--danger)':'var(--main)';clearTimeout(message.t);message.t=setTimeout(()=>{$('status').textContent=''},2500)}
+function makeText(){const parts=[];const date=$('date').value;if(date){const[y,m,d]=date.split('-');parts.push(`${Number(y)}年${Number(m)}月${Number(d)}日、`)}if($('start').value||$('end').value)parts.push(`${$('start').value||'―'}～${$('end').value||'―'}にモニタリングを実施。`);DATA.forEach(s=>{const v=values(s.id);if(v.length)parts.push(s.prefix+period(v.join('、')))});if($('free').value.trim())parts.push(period($('free').value));$('output').value=parts.join('');message(parts.length?'文章を作成しました':'内容を選択または入力してください',!parts.length)}
+function currentRecord(){const choices={};const others={};DATA.forEach(s=>{choices[s.id]=[...document.querySelectorAll(`input[name="${s.id}"]:checked`)].map(x=>x.value);others[s.id]=$(`${s.id}-other`).value});return{id:editingId||Date.now().toString(),name:$('name').value.trim(),date:$('date').value,start:$('start').value,end:$('end').value,choices,others,free:$('free').value.trim(),output:$('output').value.trim(),transferred:$('transferred').checked,updatedAt:new Date().toISOString()}}
+function save(){if(!$('date').value||!$('name').value.trim()){message('日付と利用者名を入力してください',true);return}const all=loadAll(),r=currentRecord(),i=all.findIndex(x=>x.id===r.id);if(i>=0)all[i]=r;else all.push(r);writeAll(all);editingId=r.id;$('editActions').style.display='flex';$('save').textContent='変更を保存';updateCount();message('保存しました')}
+function clearAll(){editingId=null;document.querySelectorAll('input[type="checkbox"]').forEach(x=>x.checked=false);document.querySelectorAll('textarea,input[type="text"],input[type="time"]').forEach(x=>x.value='');document.querySelectorAll('.other').forEach(x=>x.classList.remove('show'));$('date').value=new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10);$('editActions').style.display='none';$('save').textContent='このメモを保存'}
+function edit(id){const r=loadAll().find(x=>x.id===id);if(!r)return;clearAll();editingId=id;$('name').value=r.name||'';$('date').value=r.date||'';$('start').value=r.start||'';$('end').value=r.end||'';$('free').value=r.free||'';$('output').value=r.output||'';$('transferred').checked=!!r.transferred;DATA.forEach(s=>{const selected=(r.choices&&r.choices[s.id])||[];document.querySelectorAll(`input[name="${s.id}"]`).forEach(x=>x.checked=selected.includes(x.value));const other=(r.others&&r.others[s.id])||'';$(`${s.id}-other`).value=other;$(`${s.id}-other`).classList.toggle('show',selected.includes('その他'))});$('editActions').style.display='flex';$('save').textContent='変更を保存';show('input');scrollTo({top:0,behavior:'smooth'})}
+function remove(){if(!editingId||!confirm('このメモを削除しますか？'))return;writeAll(loadAll().filter(x=>x.id!==editingId));clearAll();updateCount();show('list')}
+function escHtml(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function render(){const q=$('search').value.trim().toLowerCase();let all=loadAll().sort((a,b)=>(b.date||'').localeCompare(a.date||''));if(q)all=all.filter(r=>JSON.stringify(r).toLowerCase().includes(q));$('cards').innerHTML=all.length?all.map(r=>`<button class="card" data-id="${escHtml(r.id)}"><span class="card-head"><span><span class="card-name">${escHtml(r.name)}</span><br><span class="card-date">${escHtml(r.date)} ${escHtml(r.start||'')}${r.end?'～'+escHtml(r.end):''}</span></span><span class="badge ${r.transferred?'done':''}">${r.transferred?'転記済み':'未転記'}</span></span><div class="preview">${escHtml(r.output||r.free||'内容未入力')}</div></button>`).join(''):'<div class="empty">保存したメモはありません</div>';document.querySelectorAll('.card').forEach(x=>x.onclick=()=>edit(x.dataset.id))}
+function show(v){const input=v==='input';$('inputView').style.display=input?'block':'none';$('listView').style.display=input?'none':'block';$('inputTab').classList.toggle('active',input);$('listTab').classList.toggle('active',!input);if(!input)render()}
+function updateCount(){$('count').textContent=`(${loadAll().length})`}
+$('make').onclick=makeText;$('save').onclick=save;$('newTop').onclick=()=>{clearAll();show('input')};$('cancel').onclick=clearAll;$('remove').onclick=remove;$('inputTab').onclick=()=>show('input');$('listTab').onclick=()=>show('list');$('search').oninput=render;$('clearSearch').onclick=()=>{$('search').value='';render()};$('download').onclick=()=>{const text=$('output').value.trim();if(!text){message('保存する文章がありません',true);return}const blob=new Blob([text],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='monitoring-memo-'+($('date').value||'').replaceAll('-','')+'.txt';a.click();URL.revokeObjectURL(url)};
+clearAll();updateCount();
 })();
 </script>
 </body>
