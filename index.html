@@ -4,8 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#0f6b61">
+  <meta name="mobile-web-app-capable" content="yes">
   <link rel="icon" type="image/png" href="icon.png">
   <link rel="apple-touch-icon" href="icon.png">
+  <link rel="manifest" href="manifest.json">
   <title>モニタリングメモ</title>
   <style>
     :root{--ink:#20312f;--muted:#647673;--paper:#fffdf8;--bg:#edf4f1;--line:#cedbd7;--main:#0f6b61;--main2:#e0f0eb;--danger:#a64040;--shadow:0 10px 28px rgba(31,66,59,.1)}
@@ -79,6 +81,11 @@ function updateCount(){$('count').textContent=`(${loadAll().length})`}
 $('make').onclick=makeText;$('save').onclick=save;$('newTop').onclick=()=>{clearAll();show('input')};$('cancel').onclick=clearAll;$('remove').onclick=remove;$('inputTab').onclick=()=>show('input');$('listTab').onclick=()=>show('list');$('search').oninput=render;$('clearSearch').onclick=()=>{$('search').value='';render()};$('download').onclick=()=>{const text=$('output').value.trim();if(!text){message('保存する文章がありません',true);return}const blob=new Blob([text],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='monitoring-memo-'+($('date').value||'').replaceAll('-','')+'.txt';a.click();URL.revokeObjectURL(url)};
 clearAll();updateCount();
 })();
+</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js'));
+}
 </script>
 </body>
 </html>
